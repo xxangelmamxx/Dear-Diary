@@ -1,0 +1,344 @@
+.navbar {
+  background: linear-gradient(90deg, #ff9a9e 0%, #fed5e1 100%);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-left a {
+  color: #fff5f7;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+.navbar-left a.active {
+  text-decoration: underline;
+}
+
+.navbar-right {
+  position: relative;
+}
+.user-icon-button {
+  background: none;
+  border: none;
+  color: #761d2f;
+  cursor: pointer;
+}
+.user-menu {
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ffd3e0;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(255, 182, 193, 0.3);
+  z-index: 10;
+}
+.user-menu .user-email {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #ffe4ec;
+  color: #b33939;
+  font-weight: bold;
+}
+.user-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  color: #333;
+  cursor: pointer;
+}
+.user-menu button:hover {
+  background: #fff0f5;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 182, 193, 0.2);
+}
+
+.post-card {
+  background: #fff;
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(255, 182, 193, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-bottom: 1px solid #ffe4ec;
+}
+.post-card:last-child {
+  border: none;
+}
+.post-card:hover {
+  box-shadow: 0 8px 20px rgba(255, 182, 193, 0.2);
+}
+.post-card h3 {
+  margin-bottom: 0.5rem;
+  color: #b33939;
+}
+.post-card small {
+  color: #a29b9e;
+}
+
+.post-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.post-container {
+  position: relative;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(255, 182, 193, 0.1);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.post-actions button {
+  margin-left: 0.5rem;
+}
+.post-actions .edit,
+.post-actions .delete {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+/* Loving highlights */
+.post-card.highlight-green {
+  background-color: #ffe6e6;
+}
+.post-card.highlight-yellow {
+  background-color: #fff0f5;
+}
+
+button {
+  background: #ff6b81;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+button.delete {
+  background: #ff4757;
+}
+button.edit {
+  background: #fc3ae2;
+  color: #ffffff;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ffc9de;
+  border-radius: 4px;
+}
+
+img.post-image {
+  max-width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
+.comment {
+  position: relative;
+  padding: 0.75rem 1rem;
+  background: #fff5f7;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.comment-options-icon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: #a29b9e;
+  cursor: pointer;
+}
+
+.comment-options-menu {
+  position: absolute;
+  top: 1.75rem;
+  right: 0.5rem;
+  background: #fff;
+  border: 1px solid #ffc9de;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(255, 182, 193, 0.2);
+  z-index: 10;
+}
+.comment-options-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+}
+.comment-options-menu button:hover {
+  background: #ffe4ec;
+}
+
+.comment-edit-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ffb8d1;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.comment-edit-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.comment-edit-actions button:first-child {
+  background: #00b894; /* keep green for save */
+  color: #fff;
+}
+.comment-edit-actions button:last-child {
+  background: #ff6b81;
+  color: #fff;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #ff6b81;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  padding: 0;
+}
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.upvote-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a29b9e;
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+.upvote-button svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.upvote-button.upvoted {
+  color: #ff6b81;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.home-header h1 {
+  font-size: 2rem;
+  color: #b33939;
+  margin-bottom: 0.5rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.controls select,
+.controls input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ffc9de;
+  border-radius: 4px;
+  font-size: 1rem;
+  min-width: 200px;
+}
+
+/* -- Login Page Styles -- */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+}
+
+.login-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(255, 182, 193, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #b33939;
+}
+
+.login-form .input-field {
+  margin-bottom: 1rem;
+}
+.login-form .input-field input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ffc9de;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-form button.primary {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: #ff6b81;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.login-toggle {
+  text-align: center;
+  margin-top: 1rem;
+}
+.login-toggle button {
+  background: none;
+  border: none;
+  color: #ff6b81;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  color: #ff6b81;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}

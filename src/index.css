@@ -1,0 +1,25 @@
+/* Global resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  /* soft blush background to match the loving palette */
+  background: #fff0f5;
+  /* rosy heading/text color; you can override more specifically where needed */
+  color: #b33939;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  /* warm pink links */
+  color: #ff6b81;
+}
+
+button {
+  cursor: pointer;
+}
