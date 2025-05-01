@@ -1,45 +1,76 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
-import { AuthContext } from '../context/AuthContext';
+// src/components/CreatePost.jsx
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabaseClient'
+import { AuthContext } from '../context/AuthContext'
 
 export default function CreatePost() {
-  const { currentUser } = useContext(AuthContext);
-  const nav = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const { currentUser } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    await supabase
+  const [title, setTitle]       = useState('')
+  const [content, setContent]   = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+  const [saving, setSaving]     = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!currentUser) {
+      navigate('/login')
+      return
+    }
+
+    setSaving(true)
+    setErrorMsg('')
+
+    const { error } = await supabase
       .from('posts')
       .insert({
-        user_id: currentUser.id,
         title,
         content,
-        image_url: imageUrl,
-        upvotes: 0
-      });
-    nav('/');
-  };
+        user_id: currentUser.id
+      })
+
+    setSaving(false)
+
+    if (error) {
+      console.error('Insert post error:', error.message)
+      setErrorMsg('Failed to create post.')
+    } else {
+      navigate('/')
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>New Post</h2>
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto p-4">
+      <h2 className="text-2xl font-bold">New Post</h2>
+
+      {errorMsg && <div className="text-red-600">{errorMsg}</div>}
+
       <input
-        required placeholder="Title"
-        value={title} onChange={e => setTitle(e.target.value)}
+        type="text"
+        placeholder="Title"
+        required
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+        className="w-full border rounded p-2"
       />
+
       <textarea
-        placeholder="Content (optional)"
-        value={content} onChange={e => setContent(e.target.value)}
+        placeholder="Content"
+        required
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        className="w-full border rounded p-2 h-32"
       />
-      <input
-        placeholder="Image URL (optional)"
-        value={imageUrl} onChange={e => setImageUrl(e.target.value)}
-      />
-      <button type="submit">Create</button>
+
+      <button
+        type="submit"
+        disabled={saving}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+      >
+        {saving ? 'Saving…' : 'Create Post'}
+      </button>
     </form>
-  );
+  )
 }

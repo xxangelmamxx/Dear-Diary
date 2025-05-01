@@ -1,54 +1,100 @@
-import { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
-import { AuthContext } from '../context/AuthContext';
+// src/components/EditPost.jsx
+import { useState, useEffect, useContext } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabaseClient'
+import { AuthContext } from '../context/AuthContext'
 
 export default function EditPost() {
-  const { session } = useContext(AuthContext);
-  const { id } = useParams();
-  const nav = useNavigate();
-  const [post, setPost] = useState(null);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [image_url, setImageUrl] = useState('');
+  const { currentUser } = useContext(AuthContext)
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  const [post, setPost]         = useState(null)
+  const [title, setTitle]       = useState('')
+  const [content, setContent]   = useState('')
+  const [saving, setSaving]     = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
-    if (!session) return nav('/login');
-    supabase
+    if (!currentUser) {
+      navigate('/login')
+      return
+    }
+
+    ;(async () => {
+      const { data: p, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle()
+
+      if (error || !p) {
+        navigate('/')
+        return
+      }
+      if (p.user_id !== currentUser.id) {
+        navigate(`/posts/${id}`)
+        return
+      }
+
+      setPost(p)
+      setTitle(p.title)
+      setContent(p.content)
+    })()
+  }, [currentUser, id, navigate])
+
+  if (!post) return null
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSaving(true)
+    setErrorMsg('')
+
+    const { error } = await supabase
       .from('posts')
-      .select('*')
+      .update({ title, content })
       .eq('id', id)
-      .then(({ data: [p] }) => {
-        if (!p || p.user_id !== session.user.id) {
-          return nav('/');
-        }
-        setPost(p);
-        setTitle(p.title);
-        setContent(p.content);
-        setImageUrl(p.image_url);
-      });
-  }, [session, id]);
 
-  const save = async e => {
-    e.preventDefault();
-    await supabase
-      .from('posts')
-      .update({ title, content, image_url })
-      .eq('id', id);
-    nav(`/posts/${id}`);
-  };
+    setSaving(false)
 
-  if (!post) return null;
+    if (error) {
+      console.error('Update error:', error.message)
+      setErrorMsg('Failed to update post.')
+    } else {
+      navigate(`/posts/${id}`)
+    }
+  }
+
   return (
-    <form onSubmit={save}>
-      <h2>Edit Post</h2>
-      <input value={title} onChange={e => setTitle(e.target.value)} required />
-      <textarea value={content} onChange={e => setContent(e.target.value)} />
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto p-4">
+      <h2 className="text-2xl font-bold">Edit Post</h2>
+
+      {errorMsg && <div className="text-red-600">{errorMsg}</div>}
+
       <input
-        value={image_url}
-        onChange={e => setImageUrl(e.target.value)}
+        type="text"
+        placeholder="Title"
+        required
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+        className="w-full border rounded p-2"
       />
-      <button type="submit">Save Changes</button>
+
+      <textarea
+        placeholder="Content"
+        required
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        className="w-full border rounded p-2 h-32"
+      />
+
+      <button
+        type="submit"
+        disabled={saving}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+      >
+        {saving ? 'Saving…' : 'Save Changes'}
+      </button>
     </form>
-  );
+  )
 }

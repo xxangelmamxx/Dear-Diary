@@ -23,3 +23,113 @@ a {
 button {
   cursor: pointer;
 }
+
+/* Activity Page layout */
+.activity-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.activity-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.activity-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+/* Two columns ≥768px, one column below */
+.activity-section {
+  flex: 1 1 calc(50% - 1.5rem);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+}
+@media (max-width: 768px) {
+  .activity-section {
+    flex: 1 1 100%;
+  }
+}
+/* Grid for post cards inside each section */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* src/index.css */
+
+.activity-section {
+  /* darker grey background */
+  background: #f2f2f2;    /* light‐grey */
+  
+  /* keep the rest of your styling */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.377);
+  padding: 1.5rem;
+}
+
+/* Container for Home page */
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Header with title + filter */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/* Dropdown filter styling */
+.filter-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* custom chevron */
+.filter-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
+  transform: translateY(-50%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* select reset + padding for chevron */
+.filter-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 8px 32px 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-select:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+  outline: none;
+}
+
+
+

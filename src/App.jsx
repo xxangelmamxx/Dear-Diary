@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import MyPosts from './components/MyPosts';
 import CreatePost from './components/CreatePost';
+import Activity from './components/Activity';
 import PostPage from './components/PostPage';
 import EditPost from './components/EditPost';
 
@@ -45,6 +46,7 @@ export default function App() {
           <NavLink to="/" end>Home</NavLink>
           <NavLink to="/my-posts">My Posts</NavLink>
           <NavLink to="/create">New Post</NavLink>
+          <NavLink to="/activity">My Activity</NavLink>
         </div>
 
         <div className="navbar-right" ref={menuRef}>
@@ -77,6 +79,10 @@ export default function App() {
           <Route
             path="/create"
             element={<PrivateRoute><CreatePost /></PrivateRoute>}
+          />
+          <Route
+            path="/activity"
+            element={<PrivateRoute><Activity /></PrivateRoute>}
           />
           <Route
             path="/posts/:id"
